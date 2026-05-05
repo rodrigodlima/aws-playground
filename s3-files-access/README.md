@@ -34,3 +34,21 @@ To make the value of S3 Files Access concrete, the PoC will include a side-by-si
 - **After** — the equivalent Lambda function rewritten to read and write directly against the S3 Files Access mount as if it were a local directory, with no SDK calls in the data path.
 
 The goal of this comparison is to surface the differences in code complexity, runtime behavior, and operational footprint between both approaches.
+
+# Install resources
+
+Exec the script create-poc.sh
+
+## Access ArgocdCD
+
+```
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+
+Access https://localhost:8080
+
+## Get the Argocd password
+
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
