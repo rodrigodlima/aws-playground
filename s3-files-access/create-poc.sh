@@ -22,3 +22,16 @@ mv ./kind /some-dir-in-your-PATH/kind
 # Create Kubernetes Cluster
 
 kind create cluster --config=kind-config.yaml
+
+# Install ArgoCD
+
+kubectl create namespace argocd
+kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Install Crossplane
+
+helm repo add crossplane-stable https://charts.crossplane.io/stable
+helm repo update
+helm install crossplane \
+--namespace crossplane-system \
+--create-namespace crossplane-stable/crossplane
